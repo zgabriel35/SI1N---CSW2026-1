@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+
+<style>
+  :root {
+  --cor-principal: #6a00ff;
+  --cor-secundaria: #0f0f0f;
+  --cor-destaque: #ffffff;
+  --cor-card: #1c1c1c;
+  --cor-texto: #eaeaea;
+  --cor-suave: #888;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+  background: var(--cor-secundaria);
+  color: var(--cor-texto);
+  line-height: 1.6;
+}
+
+/* HEADER */
+header {
+  background: transparent;
+  padding: 20px 40px;
+  position: fixed;
+  width: 100%;
+  backdrop-filter: blur(10px);
+}
+
+/* MENU */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+nav a {
+  color: var(--cor-texto);
+  text-decoration: none;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: var(--cor-destaque);
+}
+
+/* SEÇÕES */
+section {
+  padding: 120px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* TEXTOS */
+h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: var(--cor-destaque);
+}
+
+p {
+  color: var(--cor-suave);
+  margin-bottom: 20px;
+}
+
+/* CARDS */
+.container {
+  background: var(--cor-card);
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  transition: 0.3s;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+}
+
+/* BOTÃO */
+button {
+  background: transparent;
+  border: 1px solid var(--cor-destaque);
+  color: var(--cor-destaque);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: var(--cor-destaque);
+  color: white;
+}
+
+/* FORM */
+input, select, textarea {
+  background: #111;
+  color: white;
+  border: 1px solid #333;
+  padding: 10px;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border: 1px solid var(--cor-destaque);
+}
+</style>
+    
+</head>
+
+<body>
+
+
+  <h1>  <center> Landing Page  </center></h1>
+  <h4> <center> <i> Transformo ideias em sites que geram resultados </i> </center> </h4>
+  <br>
+
+  <h3>Formação Academica</h3>
+  <p>SENAI ARAÇAS- Vila Velha ES 
+    (2018 à 2025) </p>
+    <p>Universidade Vila Velha
+      (2026-)
+    </p>
+
+    <h3>Dados Profissionais </h3>
+    <p>Estamparia Calmon - Vila Velha/ES <br>
+Auxiliar Administrativo (2023 - 2025) <br>
+· Apoio em rotinas administrativas e organização de documentos. <br> 
+· Atendimento a clientes e fornecedores. <br>
+· Controle de planilhas e suporte em atividades de escritório. </p>
+<h3>Vida Pessoal </h3>
+<p>Sou uma pessoa dedicada, com interesse em evolução pessoal e profissional. Meus principais hobbies incluem treinar musculação, praticar esportes como futebol e futevôlei, além de consumir conteúdos digitais. <br>
+Músicas: gosto de rap, trap e pagode <br>
+Vídeos: conteúdos sobre esporte, motivação e tecnologia
+<h4><a href="https://open.spotify.com/user/21p7wyxzlpkqw54vrakxzvsdy?si=529117ced544417b" target="_blank" rel="nofollow"> <img src="./imagem/Logo Spotify.png" width="100px" alt="Spotify logo"> </a> </h4>
+</p>
+<h3>Serviços oferecidos</h3>
+<p>Oferecemos serviços de desenvolvimento de sites modernos, responsivos e personalizados para diversos tipos de negócios, como: <br>
+Restaurantes <br>
+Academias <br>
+Lojas online <br>
+Cafeterias <br>
+Escolinhas de esporte (futebol, vôlei, futevôlei) <br>
+Empresas em geral 
+<h4>Meu objetivo é criar sites que ajudem o cliente a atrair mais público e gerar resultados.</h4> </p>
+<h3>Valores – Sites Estáticos</h3>
+<table border="1">
+  <thead> 
+<tr>
+<th>Quantidade pags</th>
+<th>Preço</th>
+</tr>
+</thead>
+<tbody> 
+<tr>
+<td>Site de 1 a 2 páginas</td>
+<td>R$ 300,00</td>
+</tr>
+
+<tr>
+<td>Site de 3 a 5 páginas</td>
+<td>R$ 600,00</td>
+</tr>
+
+<tr>
+<td>Mais de 5 pags</td>
+<td>R$ 1000,00</td>
+</tr>
+</tbody>
+<tfoot> </tfoot>
+</table>
+
+<h3> Valores – Sites Dinâmicos e Avançados </h3>
+<table border="1">
+  <thead> 
+<tr>
+<th>Estilo de site</th>
+<th>Preço</th>
+</tr>
+</thead>
+<tbody> 
+<tr>
+<td>Site dinâmico</td>
+<td>R$1.500,00</td>
+</tr>
+
+<tr>
+<td>Site avançado</td>
+<td>R$2.500,00</td>
+</tr>
+</tbody>
+<tfoot> </tfoot>
+</table>
+<hr>
+
+<section id="contato">
+  <div class="container">
+    <h3>Contato</h3>
+    <form>
+      <input type="text" placeholder="Nome completo" required> <br>
+      <input type="tel" placeholder="Telefone" required> <br>
+      <input type="email" placeholder="Email" required> <br>
+
+      <label>Tipo de pessoa:</label>
+      <select>
+        <option>Pessoa Física</option>
+        <option>Pessoa Jurídica</option>
+      </select>
+
+      <label>Melhor horário:</label>
+      <input type="time">
+<br>
+      <label>Serviço desejado:</label>
+      <select>
+        <option>Site simples</option>
+        <option>Site dinâmico</option>
+        <option>Site avançado</option>
+      </select>
+<br>
+      <textarea placeholder="Descreva o que deseja"></textarea>
+<br>
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+</section>
+
+<hr>
+<h2>Venha me Conhecer</h2>
+<h4> <a href="./home/home.html" target="_self">Clique para entrar no home</a> </h4>
+
+<h2>Venha ver meu Curriculo</h2>
+<h4> <a href="./curriculo/curriculo.html" target="_self">Clique para acessar meu curriculo</a> </h4>
+
+<h2>Conheça meu GitHub</h2>
+<h4> <a href="./github/github.html" target="_self">Clique para acessar meu GitHub</a> </h4>
+
+<h2>Serviço</h2>
+<h4> <a href="./servicos/servicos.html" target="_self">Clique para acessar meus serviços</a> </h4>
+
+<h2>Contato</h2>
+<h4> <a href="./contato/contato.html" target="_self">Clique para acessar meu contato</a> </h4>
+
+</body>
+</html>
