@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro de Animal - Projeto Arca</title>
+
+  <style>
+    @import url("[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --azul-topo: #29548e;
+      --fundo: #f2efe9;
+      --card: #fbf8f3;
+      --verde: #3f6f5f;
+      --verde-claro: #dcefe7;
+      --verde-sidebar: #e9e3d6;
+      --laranja: #e07a5f;
+      --laranja-hover: #c9614a;
+      --texto: #2f2f2f;
+      --texto-suave: #666;
+      --borda: #ddd4c7;
+      --sombra: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--fundo);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    .gov {
+      background-color: var(--azul-topo);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 6px 18px;
+      min-height: 34px;
+      color: #fff;
+    }
+
+    .gov-brand {
+      font-weight: 700;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    .nav-gov {
+      list-style: none;
+      display: flex;
+      gap: 18px;
+      flex: 1;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-gov a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-gov a:hover {
+      text-decoration: underline;
+    }
+
+    nav {
+      background: #faf7f2;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 10px 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 170px;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      border: 2px solid #85a996;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: var(--verde);
+      font-size: 1.4rem;
+      background: #fff;
+    }
+
+    .logo-text strong {
+      display: block;
+      font-size: 1.35rem;
+      color: var(--verde);
+      line-height: 1;
+    }
+
+    .logo-text span {
+      font-size: 0.72rem;
+      color: #666;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      flex-wrap: wrap;
+      font-size: 0.84rem;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .nav-list a:hover {
+      color: var(--verde);
+    }
+
+    .btn-minha-conta {
+      background: var(--laranja);
+      color: white;
+      border: none;
+      border-radius: 24px;
+      padding: 9px 16px;
+      font-size: 0.84rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 500;
+    }
+
+    .btn-minha-conta:hover {
+      background: var(--laranja-hover);
+    }
+
+    .page-wrapper {
+      max-width: 1180px;
+      margin: 20px auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: var(--sombra);
+      min-height: 620px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border: 1px solid #eee2d2;
+    }
+
+    .sidebar-menu {
+      padding: 18px 0;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 18px;
+      margin: 0 12px 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: #444;
+      font-size: 0.92rem;
+      border: 1px solid transparent;
+      background: #fff;
+      min-height: 58px;
+    }
+
+    .sidebar-item.active {
+      background: #e8e1d3;
+      color: #222;
+      font-weight: 600;
+    }
+
+    .sidebar-item:hover {
+      background: #f1ece4;
+    }
+
+    .side-icon {
+      width: 22px;
+      text-align: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .sidebar-bottom {
+      padding: 16px;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(141, 197, 168, 0.25) 0 40px, transparent 41px),
+        radial-gradient(circle at 32% 72%, rgba(141, 197, 168, 0.18) 0 18px, transparent 19px),
+        linear-gradient(to top, #ddefe4, #f8f5ee 70%);
+      min-height: 140px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .btn-sair {
+      width: 100%;
+      max-width: 160px;
+      border: none;
+      border-radius: 8px;
+      background: var(--verde);
+      color: #fff;
+      padding: 10px 14px;
+      font-family: inherit;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn-sair:hover {
+      background: #2d5548;
+    }
+
+    .content {
+      flex: 1;
+      min-height: 620px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: var(--sombra);
+      border: 1px solid #eee2d2;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      
+    }
+
+    .content-inner {
+      padding: 26px 28px 10px;
+      flex: 1;
+    }
+
+    .content-header {
+      margin-bottom: 8px;
+    }
+
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--verde);
+      font-size: 1.55rem;
+      font-weight: 700;
+    }
+
+    .content-title .paw {
+      font-size: 1.6rem;
+    }
+
+    .content-subtitle {
+      margin-top: 8px;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #1f1f1f;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr 1fr 280px;
+      gap: 18px;
+      align-items: start;
+      margin-top: 10px;
+    }
+
+    .form-main {
+      grid-column: 1 / 4;
+    }
+
+    .upload-card {
+      grid-column: 4 / 5;
+      background: #f8f5ef;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .upload-card h3 {
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #444;
+    }
+
+    .upload-box {
+      border: 2px dashed #c9c3b7;
+      border-radius: 8px;
+      min-height: 190px;
+      background: #fffdfa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+      text-align: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .upload-box:hover {
+      border-color: #95b5a5;
+      background: #fcfffd;
+    }
+
+    .upload-box.dragover {
+      border-color: var(--verde);
+      background: #f0faf5;
+    }
+
+    .upload-icon {
+      font-size: 2rem;
+      color: var(--verde);
+    }
+
+    .upload-box p {
+      font-size: 0.8rem;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    .upload-box img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .remove-image {
+      display: none;
+      margin-top: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #c9614a;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.82rem;
+    }
+
+    .remove-image:hover {
+      background: #b74f39;
+    }
+
+    .section-title {
+      margin: 18px 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #202020;
+    }
+
+    .row {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .row-3 {
+      grid-template-columns: 1.4fr 0.5fr 1fr;
+    }
+
+    .row-4 {
+      grid-template-columns: 1fr 1fr 0.8fr 1fr;
+    }
+
+    .row-2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      height: 38px;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      background: #fff;
+      color: #222;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 92px;
+      resize: vertical;
+      padding-top: 10px;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: #7fa693;
+      box-shadow: 0 0 0 3px rgba(127, 166, 147, 0.12);
+    }
+
+    .inline-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      padding-top: 3px;
+      min-height: 38px;
+      align-items: center;
+    }
+
+    .inline-options label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.79rem;
+      font-weight: 400;
+      color: #444;
+      cursor: pointer;
+    }
+
+    .inline-options input[type="radio"],
+    .inline-options input[type="checkbox"] {
+      accent-color: var(--verde);
+      transform: translateY(1px);
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 22px;
+      padding: 11px 22px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--laranja);
+      color: white;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--laranja-hover);
+    }
+
+    .btn-secondary {
+      background: #e6e1d8;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #d8d2c8;
+    }
+
+    .message {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      display: none;
+    }
+
+    .message.success {
+      display: block;
+      background: #e7f6ee;
+      color: #1f6b47;
+      border: 1px solid #bfe3ce;
+    }
+
+    .message.error {
+      display: block;
+      background: #fdeaea;
+      color: #a33d3d;
+      border: 1px solid #edc0c0;
+    }
+
+    .decor-footer {
+      height: 125px;
+      background:
+        radial-gradient(circle at 10% 70%, rgba(138, 192, 165, 0.30) 0 18px, transparent 19px),
+        radial-gradient(circle at 5% 48%, rgba(138, 192, 165, 0.22) 0 10px, transparent 11px),
+        radial-gradient(circle at 14% 44%, rgba(138, 192, 165, 0.22) 0 10px, transparent 11px),
+        radial-gradient(circle at 8% 30%, rgba(138, 192, 165, 0.22) 0 10px, transparent 11px),
+        radial-gradient(circle at 85% 78%, rgba(138, 192, 165, 0.22) 0 28px, transparent 29px),
+        linear-gradient(to top, #dff1e6 0%, #edf8f1 35%, #f9f6f0 35%),
+        linear-gradient(175deg, transparent 0 54%, #d8efe6 54% 70%, transparent 70%),
+        linear-gradient(185deg, transparent 0 58%, #e3f4ee 58% 74%, transparent 74%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pet-illustration {
+      position: absolute;
+      right: 48px;
+      bottom: 14px;
+      font-size: 3rem;
+      color: var(--verde);
+      opacity: 0.95;
+    }
+
+    .deco-footer {
+        width: 100%;
+        height: 110px;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .deco-footer svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    
+
+    .required::after {
+      content: " *";
+      color: #c65b49;
+    }
+
+    @media (max-width: 1080px) {
+      .page-wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        min-height: auto;
+      }
+
+      .content {
+        width: 100%;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-main,
+      .upload-card {
+        grid-column: auto;
+      }
+
+      .row-3,
+      .row-4,
+      .row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .content-inner {
+        padding: 20px 16px 10px;
+      }
+
+      .content-title {
+        font-size: 1.25rem;
+      }
+
+      .content-subtitle {
+        font-size: 1.35rem;
+      }
+
+      .nav-list,
+      .nav-gov {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="gov">
+      <div class="gov-brand">SERRA</div>
+      <ul class="nav-gov">
+        <li><a href="#">Transparência</a></li>
+        <li><a href="#">Portal de Atendimentos (Ouvidoria / E-Sic)</a></li>
+        <li><a href="#">Legislação</a></li>
+        <li><a href="#">Notícias</a></li>
+        <li><a href="#">Carta de Serviços</a></li>
+      </ul>
+    </div>
+
+    <nav>
+      <div class="logo">
+        <div class="logo-mark">🐾</div>
+        <div class="logo-text">
+          <strong>ARCA</strong>
+          <span>ambiente de resgate, cuidado e adoção</span>
+        </div>
+      </div>
+
+      <ul class="nav-list">
+        <li><a href="#">⌂ Home</a></li>
+        <li><a href="#">ⓘ Sobre a Arca</a></li>
+        <li><a href="#">🐾 Adoção</a></li>
+        <li><a href="#">🩺 Serviços</a></li>
+        <li><a href="#">🤝 ONG's Parceiras</a></li>
+        <li><a href="#">📰 Notícias</a></li>
+        <li><a href="#">@ Contato</a></li>
+        <li><a href="#">? Ajuda</a></li>
+      </ul>
+
+      <button class="btn-minha-conta">Minha Conta</button>
+    </nav>
+  </header>
+
+  <div class="page-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-menu">
+        <a href="#" class="sidebar-item">
+          <span class="side-icon">👤</span>
+          <span>Meus Dados</span>
+        </a>
+
+        <a href="#" class="sidebar-item active">
+          <span class="side-icon">🐶</span>
+          <span>Meus Animais</span>
+        </a>
+
+        <a href="#" class="sidebar-item">
+          <span class="side-icon">🧾</span>
+          <span>Minhas Solicitações</span>
+        </a>
+
+        <a href="#" class="sidebar-item">
+          <span class="side-icon">📣</span>
+          <span>Minhas Denúncias</span>
+        </a>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button class="btn-sair" type="button">Sair da Conta</button>
+      </div>
+    </aside>
+
+    <main class="content">
+      <div class="content-inner">
+        <div class="content-header">
+          <div class="content-title">
+            <span class="paw">🐾</span>
+            <span>Meus Animais</span>
+          </div>
+          <div class="content-subtitle">Cadastro de Animal</div>
+        </div>
+
+        <form id="animalForm">
+          <div class="form-grid">
+            <div class="form-main">
+              <div class="section-title">Informações Básicas</div>
+
+              <div class="row row-3">
+                <div class="field">
+                  <label for="nome" class="required">Nome</label>
+                  <input type="text" id="nome" name="nome" placeholder="Digite o nome do animal" required />
+                </div>
+
+                <div class="field">
+                  <label for="idade" class="required">Idade</label>
+                  <input type="number" id="idade" name="idade" min="0" max="40" placeholder="0" required />
+                </div>
+
+                <div class="field">
+                  <label for="raca">Raça</label>
+                  <input type="text" id="raca" name="raca" placeholder="Ex.: Vira-lata, Poodle, Siamês" />
+                </div>
+              </div>
+
+              <div class="row row-4">
+                <div class="field">
+                  <label for="especie" class="required">Espécie</label>
+                  <select id="especie" name="especie" required>
+                    <option value="">Selecione</option>
+                    <option value="Cachorro">Cachorro</option>
+                    <option value="Gato">Gato</option>
+                    <option value="Outro">Outro</option>
+                  </select>
+                </div>
+
+                <div class="field" id="outroEspecieField" style="display: none;">
+                  <label for="outraEspecie" class="required">Qual?</label>
+                  <input type="text" id="outraEspecie" name="outraEspecie" placeholder="Informe a espécie" />
+                </div>
+
+                <div class="field">
+                  <label for="sexo" class="required">Sexo</label>
+                  <select id="sexo" name="sexo" required>
+                    <option value="">Selecione</option>
+                    <option value="Macho">Macho</option>
+                    <option value="Fêmea">Fêmea</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="porte">Porte</label>
+                  <select id="porte" name="porte">
+                    <option value="">Selecione</option>
+                    <option value="Pequeno">Pequeno</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Grande">Grande</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="section-title">Situação do Animal</div>
+
+              <div class="row row-2">
+                <div class="field">
+                  <label class="required">O animal é castrado?</label>
+                  <div class="inline-options">
+                    <label><input type="radio" name="castrado" value="Sim" required /> Sim</label>
+                    <label><input type="radio" name="castrado" value="Não" /> Não</label>
+                    <label><input type="radio" name="castrado" value="Não sei dizer" /> Não sei dizer</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label class="required">O animal é vacinado?</label>
+                  <div class="inline-options">
+                    <label><input type="radio" name="vacinado" value="Sim" required /> Sim</label>
+                    <label><input type="radio" name="vacinado" value="Não" /> Não</label>
+                    <label><input type="radio" name="vacinado" value="Não sei dizer" /> Não sei dizer</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row row-2">
+                <div class="field">
+                  <label class="required">O animal é vermifugado?</label>
+                  <div class="inline-options">
+                    <label><input type="radio" name="vermifugado" value="Sim" required /> Sim</label>
+                    <label><input type="radio" name="vermifugado" value="Não" /> Não</label>
+                    <label><input type="radio" name="vermifugado" value="Não sei dizer" /> Não sei dizer</label>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Condição atual</label>
+                  <select id="condicao" name="condicao">
+                    <option value="">Selecione</option>
+                    <option value="Saudável">Saudável</option>
+                    <option value="Em tratamento">Em tratamento</option>
+                    <option value="Resgatado recentemente">Resgatado recentemente</option>
+                    <option value="Necessita cuidados">Necessita cuidados</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="section-title">Informação de Saúde</div>
+
+              <div class="row row-2">
+                <div class="field">
+                  <label for="peso">Peso (kg)</label>
+                  <input type="number" id="peso" name="peso" min="0" step="0.1" placeholder="Ex.: 8.5" />
+                </div>
+
+                <div class="field">
+                  <label for="cor">Cor predominante</label>
+                  <input type="text" id="cor" name="cor" placeholder="Ex.: Caramelo, Preto, Branco" />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="field">
+                  <label for="observacoes">Observações</label>
+                  <textarea id="observacoes" name="observacoes" placeholder="Informe alergias, doenças, medicamentos, comportamento ou outras observações importantes."></textarea>
+                </div>
+              </div>
+
+              <div class="actions">
+                <button type="submit" class="btn btn-primary">Salvar cadastro</button>
+                <button type="reset" class="btn btn-secondary" id="btnLimpar">Limpar campos</button>
+              </div>
+
+              <div id="messageBox" class="message"></div>
+            </div>
+
+            <div class="upload-card">
+              <h3>Adicione uma foto nítida do animal</h3>
+
+              <label class="upload-box" id="uploadBox" for="foto">
+                <div id="uploadPlaceholder">
+                  <div class="upload-icon">📷</div>
+                  <p>Arraste o arquivo<br />ou<br /><strong>Clique Aqui</strong></p>
+                </div>
+                <img id="previewImage" alt="Pré-visualização da foto do animal" />
+              </label>
+
+              <input type="file" id="foto" name="foto" accept="image/*" hidden />
+
+              <button type="button" class="remove-image" id="removeImageBtn">Remover foto</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="deco-footer">
+          <img src="Imagens/rodape.png" alt="Nenhum animal cadastrado" />
+        </div>
+    </main>
+  </div>
+
+  <script>
+    const form = document.getElementById("animalForm");
+    const especie = document.getElementById("especie");
+    const outroEspecieField = document.getElementById("outroEspecieField");
+    const outraEspecie = document.getElementById("outraEspecie");
+    const fotoInput = document.getElementById("foto");
+    const uploadBox = document.getElementById("uploadBox");
+    const previewImage = document.getElementById("previewImage");
+    const uploadPlaceholder = document.getElementById("uploadPlaceholder");
+    const removeImageBtn = document.getElementById("removeImageBtn");
+    const messageBox = document.getElementById("messageBox");
+    const btnLimpar = document.getElementById("btnLimpar");
+
+    let imagemBase64 = "";
+
+    function mostrarMensagem(texto, tipo) {
+      messageBox.textContent = texto;
+      messageBox.className = "message " + tipo;
+    }
+
+    function limparMensagem() {
+      messageBox.textContent = "";
+      messageBox.className = "message";
+    }
+
+    function atualizarCampoOutraEspecie() {
+      if (especie.value === "Outro") {
+        outroEspecieField.style.display = "flex";
+        outraEspecie.required = true;
+      } else {
+        outroEspecieField.style.display = "none";
+        outraEspecie.required = false;
+        outraEspecie.value = "";
+      }
+    }
+
+    especie.addEventListener("change", atualizarCampoOutraEspecie);
+
+    function exibirPreview(file) {
+      if (!file) return;
+
+      if (!file.type.startsWith("image/")) {
+        mostrarMensagem("Selecione um arquivo de imagem válido.", "error");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        imagemBase64 = event.target.result;
+        previewImage.src = imagemBase64;
+        previewImage.style.display = "block";
+        uploadPlaceholder.style.display = "none";
+        removeImageBtn.style.display = "block";
+        limparMensagem();
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    fotoInput.addEventListener("change", function() {
+      const file = this.files[0];
+      exibirPreview(file);
+    });
+
+    removeImageBtn.addEventListener("click", function() {
+      fotoInput.value = "";
+      imagemBase64 = "";
+      previewImage.src = "";
+      previewImage.style.display = "none";
+      uploadPlaceholder.style.display = "block";
+      removeImageBtn.style.display = "none";
+    });
+
+    ["dragenter", "dragover"].forEach(function(eventName) {
+      uploadBox.addEventListener(eventName, function(event) {
+        event.preventDefault();
+        uploadBox.classList.add("dragover");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(function(eventName) {
+      uploadBox.addEventListener(eventName, function(event) {
+        event.preventDefault();
+        uploadBox.classList.remove("dragover");
+      });
+    });
+
+    uploadBox.addEventListener("drop", function(event) {
+      const file = event.dataTransfer.files[0];
+      if (file) {
+        fotoInput.files = event.dataTransfer.files;
+        exibirPreview(file);
+      }
+    });
+
+    function obterValorRadio(nome) {
+      const selecionado = document.querySelector('input[name="' + nome + '"]:checked');
+      return selecionado ? selecionado.value : "";
+    }
+
+    function validarFormulario() {
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+      }
+
+      if (especie.value === "Outro" && outraEspecie.value.trim() === "") {
+        mostrarMensagem("Informe a espécie do animal.", "error");
+        outraEspecie.focus();
+        return false;
+      }
+
+      return true;
+    }
+
+    function montarDadosFormulario() {
+      return {
+        nome: document.getElementById("nome").value.trim(),
+        idade: document.getElementById("idade").value.trim(),
+        raca: document.getElementById("raca").value.trim(),
+        especie: especie.value === "Outro" ? outraEspecie.value.trim() : especie.value,
+        sexo: document.getElementById("sexo").value,
+        porte: document.getElementById("porte").value,
+        castrado: obterValorRadio("castrado"),
+        vacinado: obterValorRadio("vacinado"),
+        vermifugado: obterValorRadio("vermifugado"),
+        condicao: document.getElementById("condicao").value,
+        peso: document.getElementById("peso").value.trim(),
+        cor: document.getElementById("cor").value.trim(),
+        observacoes: document.getElementById("observacoes").value.trim(),
+        foto: imagemBase64,
+        dataCadastro: new Date().toLocaleString("pt-BR")
+      };
+    }
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      limparMensagem();
+
+      if (!validarFormulario()) {
+        return;
+      }
+
+      const dadosAnimal = montarDadosFormulario();
+
+      try {
+        const animaisSalvos = JSON.parse(localStorage.getItem("arca_animais")) || [];
+        animaisSalvos.push(dadosAnimal);
+        localStorage.setItem("arca_animais", JSON.stringify(animaisSalvos));
+
+        mostrarMensagem("Animal cadastrado com sucesso.", "success");
+        console.log("Animal salvo:", dadosAnimal);
+
+        form.reset();
+        atualizarCampoOutraEspecie();
+
+        imagemBase64 = "";
+        previewImage.src = "";
+        previewImage.style.display = "none";
+        uploadPlaceholder.style.display = "block";
+        removeImageBtn.style.display = "none";
+      } catch (error) {
+        mostrarMensagem("Não foi possível salvar o cadastro.", "error");
+        console.error(error);
+      }
+    });
+
+    btnLimpar.addEventListener("click", function() {
+      limparMensagem();
+      imagemBase64 = "";
+      previewImage.src = "";
+      previewImage.style.display = "none";
+      uploadPlaceholder.style.display = "block";
+      removeImageBtn.style.display = "none";
+      setTimeout(atualizarCampoOutraEspecie, 0);
+    });
+
+    atualizarCampoOutraEspecie();
+  </script>
+</body>
+</html>

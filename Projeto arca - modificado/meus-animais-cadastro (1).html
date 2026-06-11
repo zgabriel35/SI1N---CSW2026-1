@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./src/img/icone.png" type="image/x-icon" />
+  <title>Cadastro de Animal – Projeto Arca</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap");
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #f5f2ed;
+    }
+
+    .gov {
+      background-color: #29548e;
+      display: flex;
+      align-items: center;
+      padding: 6px 20px;
+      gap: 16px;
+    }
+
+    #head-img {
+      height: 28px;
+    }
+
+    .nav-gov {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .nav-gov a {
+      text-decoration: none;
+      color: inherit;
+      transition: 0.2s;
+    }
+
+    .nav-gov a:hover {
+      color: #cce;
+    }
+
+    nav {
+      background-color: #faf7f2;
+      display: flex;
+      align-items: center;
+      padding: 10px 28px;
+      gap: 40px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+    }
+
+    #nav-img {
+      height: 44px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 0.88rem;
+      flex: 1;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #333;
+      transition: 0.2s;
+    }
+
+    .nav-list a:hover {
+      color: #3f6f5f;
+    }
+
+    .btn-minha-conta {
+      background-color: #e07a5f;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+
+    .btn-minha-conta:hover {
+      background-color: #c9614a;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      background-color: #faf7f2;
+      border-radius: 10px;
+      padding: 20px 0;
+      min-width: 160px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-height: 580px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font-size: 0.88rem;
+      color: #444;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background-color: #ede9e2;
+    }
+
+    .sidebar-item.active {
+      background-color: #e5e0d8;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .sidebar-icon {
+      display: inline-block;
+      width: 1.1em;
+      height: 1.1em;
+      background-color: currentColor;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      flex-shrink: 0;
+    }
+
+    .icon-user {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+    }
+
+    .icon-paw {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+    }
+
+    .icon-list {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+    }
+
+    .icon-alert {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-6 4c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-6 4c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z'/%3E%3C/svg%3E");
+    }
+
+    .sidebar-spacer {
+      flex: 1;
+      min-height: 40px;
+    }
+
+    .btn-sair {
+      margin: 8px 16px;
+      background-color: #3f6f5f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: "Inter", sans-serif;
+      transition: background-color 0.2s;
+    }
+
+    .btn-sair:hover {
+      background-color: #2e5245;
+    }
+
+    .content {
+      flex: 1;
+      background-color: #faf7f2;
+      border-radius: 10px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+      min-height: 580px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #3f6f5f;
+      margin-bottom: 6px;
+    }
+
+    .content-title-icon {
+      width: 1.4em;
+      height: 1.4em;
+      background-color: #3f6f5f;
+      display: inline-block;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    .content-subtitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .form-left {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-section-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #e5e0d8;
+    }
+
+    .fields-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .field input[type="text"],
+    .field input[type="number"],
+    .field select {
+      border: 1px solid #d0cbc4;
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 0.85rem;
+      font-family: "Inter", sans-serif;
+      background-color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: #3f6f5f;
+    }
+
+    .field-nome {
+      flex: 2;
+      min-width: 150px;
+    }
+
+    .field-idade {
+      flex: 1;
+      min-width: 70px;
+    }
+
+    .field-raca {
+      flex: 2;
+      min-width: 120px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .radio-group label {
+      font-size: 0.82rem;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .radio-group input[type="radio"] {
+      accent-color: #3f6f5f;
+    }
+
+    .especie-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .especie-row .field-label {
+      font-size: 0.82rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .especie-radios {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .especie-radios label {
+      font-size: 0.82rem;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .especie-radios input[type="radio"] {
+      accent-color: #3f6f5f;
+    }
+
+    .field-outro {
+      min-width: 80px;
+    }
+
+    .field-outro input {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+      border: 1px solid #d0cbc4;
+      border-radius: 6px;
+      outline: none;
+      font-family: "Inter", sans-serif;
+    }
+
+    .field-outro input:focus {
+      border-color: #3f6f5f;
+    }
+
+    .situacao-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+    }
+
+    .situacao-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .situacao-item .sit-label {
+      font-size: 0.8rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .upload-icon {
+      font-size: 30px;
+      color: var(--verde);
+    }
+
+    /* upload box */
+    .upload-box {
+      border: 2px dashed #c0bab3;
+      border-radius: 10px;
+      padding: 28px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #f9f5f0;
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
+      text-align: center;
+      min-height: 160px;
+    }
+
+    .upload-box:hover {
+      border-color: #3f6f5f;
+      background-color: #f0ede8;
+    }
+
+    .upload-box p {
+      font-size: 0.8rem;
+      color: #777;
+      line-height: 1.5;
+    }
+
+    .upload-box .upload-label {
+      font-size: 0.8rem;
+      color: #555;
+    }
+
+    .upload-link {
+      color: #3f6f5f;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .upload-label-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 4px;
+    }
+
+    .deco-footer {
+      width: 100%;
+      height: 90px;
+      position: absolute;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 760px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .page-wrapper {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav-list {
+        gap: 12px;
+        font-size: 0.78rem;
+      }
+    }
+
+    .obs-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .btn-enviar {
+      padding: 20px 25px;
+      background: #e07a5f;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="gov">
+      <img src="Imagens/brasao-serra.png" alt="Brasão da Prefeitura da Serra" id="head-img" />
+      <ul class="nav-gov">
+        <li><a href="https://transparencia.serra.es.gov.br/" target="_blank">Transparência</a></li>
+        <li><a href="https://portalatendimentos.serra.es.gov.br/#/" target="_blank">Portal de Atendimentos (Ouvidoria /
+            E-sic)</a></li>
+        <li><a href="https://prefeiturasempapel.serra.es.gov.br/legislacao/" target="_blank">Legislação</a></li>
+        <li><a href="" target="_blank">Notícias</a></li>
+        <li><a href="https://transparencia.serra.es.gov.br/CartaServico.Lista.aspx" target="_blank">Carta de
+            Serviços</a></li>
+      </ul>
+    </div>
+    <nav>
+      <img src="Imagens/logo-pequena.png" alt="Logo do Projeto Arca" id="nav-img" />
+      <ul class="nav-list">
+        <li><a href="./index.html">&#8962; Home</a></li>
+        <li><a href="">&#9432; Sobre a Arca</a></li>
+        <li><a href="">&#x1F43E; Adoção</a></li>
+        <li><a href="">&#128295; Serviços</a></li>
+        <li><a href="">&#129310; ONG's Parceiras</a></li>
+        <li><a href="">&#128240; Notícias</a></li>
+        <li><a href="">&#64; Contato</a></li>
+        <li><a href="">&#63; Ajuda</a></li>
+      </ul>
+      <button class="btn-minha-conta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+        </svg>
+        Minha Conta
+      </button>
+    </nav>
+  </header>
+
+  <div class="page-wrapper">
+    <aside class="sidebar">
+      <a href="" class="sidebar-item">
+        <span class="sidebar-icon icon-user"></span> Meus Dados
+      </a>
+      <a href="" class="sidebar-item active">
+        <span class="sidebar-icon icon-paw"></span> Meus Animais
+      </a>
+      <a href="" class="sidebar-item">
+        <span class="sidebar-icon icon-list"></span> Minhas Solicitações
+      </a>
+      <a href="" class="sidebar-item">
+        <span class="sidebar-icon icon-alert"></span> Minhas Denúncias
+      </a>
+      <div class="sidebar-spacer"></div>
+      <button class="btn-sair">Sair da Conta</button>
+    </aside>
+
+    <main class="content">
+      <div class="content-title">
+        <span class="content-title-icon"></span>
+        Meus Animais
+      </div>
+      <div class="content-subtitle">Cadastro de Animal</div>
+
+      <div class="form-grid">
+        <div class="form-left">
+
+          <div>
+            <div class="form-section-title">Informações Básicas</div>
+            <div class="fields-row">
+              <div class="field field-nome">
+                <label>Nome</label>
+                <input type="text" placeholder="" />
+              </div>
+              <div class="field field-idade">
+                <label>Idade</label>
+                <input type="text" placeholder="" />
+              </div>
+              <div class="field field-raca">
+                <label>Raça</label>
+                <input type="text" placeholder="" />
+              </div>
+            </div>
+
+            <div style="margin-top:14px;">
+              <div class="especie-row">
+                <span class="field-label">Espécie</span>
+                <div class="especie-radios">
+                  <label><input type="radio" name="especie" value="cachorro" checked /> Cachorro</label>
+                  <label><input type="radio" name="especie" value="gato" /> Gato</label>
+                  <label><input type="radio" name="especie" value="outro" /> Outro: </label>
+                  <div class="field-outro">
+                    <input type="text" placeholder="Qual?" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-section-title">Situação do Animal</div>
+            <div class="situacao-grid">
+              <div class="situacao-item">
+                <span class="sit-label">O animal é castrado?</span>
+                <div class="radio-group">
+                  <label><input type="radio" name="castrado" /> Sim</label>
+                  <label><input type="radio" name="castrado" /> Não</label>
+                  <label><input type="radio" name="castrado" /> Não sei dizer</label>
+                </div>
+              </div>
+              <div class="situacao-item">
+                <span class="sit-label">O animal é vacinado?</span>
+                <div class="radio-group">
+                  <label><input type="radio" name="vacinado" /> Sim</label>
+                  <label><input type="radio" name="vacinado" /> Não</label>
+                  <label><input type="radio" name="vacinado" /> Não sei dizer</label>
+                </div>
+              </div>
+              <div class="situacao-item">
+                <span class="sit-label">O animal é vermifugado?</span>
+                <div class="radio-group">
+                  <label><input type="radio" name="vermifugado" /> Sim</label>
+                  <label><input type="radio" name="vermifugado" /> Não</label>
+                  <label><input type="radio" name="vermifugado" /> Não sei dizer</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="form-section-title">Informação de Saúde</div>
+            <div class="fields-row">
+
+              <div class="field" style="flex:1">
+                <label>Observações de saúde</label>
+                <input type="text" placeholder="Ex: alérgico a determinada ração..." style="width:100%;" />
+              </div>
+              <button type="submit" class="btn-enviar">
+                Enviar
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <p class="upload-label-title">Adicione uma foto nítida do animal</p>
+          <div class="upload-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="#aaa">
+              <div class="upload-icon">📷</div>
+            </svg>
+            <p>Arraste o arquivo<br />ou<br /><span class="upload-link">Clique Aqui</span></p>
+          </div>
+        </div>
+      </div>
+
+
+  </div>
+
+  <div class="deco-footer">
+    <img src="Imagens/rodape.png" alt="Nenhum animal cadastrado" />
+  </div>
+  </main>
+  </div>
+</body>
+
+</html>

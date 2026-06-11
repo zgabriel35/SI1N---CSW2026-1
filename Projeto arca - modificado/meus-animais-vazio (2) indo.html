@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./src/img/icone.png" type="image/x-icon" />
+    <title>Meus Animais – Projeto Arca</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+      * { padding: 0; margin: 0; box-sizing: border-box; }
+      body { font-family: "Inter", sans-serif; background-color: #f0ede8; min-height: 100vh; }
+
+      .gov {
+        background-color: #29548e;
+        display: flex;
+        align-items: center;
+        padding: 5px 18px;
+        gap: 12px;
+        min-height: 32px;
+      }
+      #head-img { height: 22px; }
+      .nav-gov {
+        list-style: none;
+        display: flex;
+        gap: 18px;
+        flex: 1;
+        justify-content: center;
+        font-size: 0.75rem;
+        color: white;
+      }
+      .nav-gov a { text-decoration: none; color: inherit; }
+      .nav-gov a:hover { text-decoration: underline; }
+
+      nav {
+        background-color: #faf7f2;
+        display: flex;
+        align-items: center;
+        padding: 8px 24px;
+        gap: 30px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.1);
+      }
+      #nav-img { height: 40px; }
+      .nav-list {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 0.82rem;
+        flex: 1;
+      }
+      .nav-list a { text-decoration: none; color: #333; display: flex; align-items: center; gap: 4px; }
+      .nav-list a:hover { color: #3f6f5f; }
+
+      .btn-minha-conta {
+        background-color: #e07a5f;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 7px 16px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+      }
+      .btn-minha-conta:hover { background-color: #c9614a; }
+
+      .page-wrapper {
+        max-width: 1050px;
+        margin: 24px auto;
+        padding: 0 20px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .sidebar {
+        background-color: #faf7f2;
+        border-radius: 10px;
+        width: 250px;
+        min-width: 148px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.07);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        min-height: 600px;
+        position: relative;
+        padding-bottom: 80px;
+      }
+
+      .sidebar-item {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 13px 16px;
+        font-size: 0.82rem;
+        color: #444;
+        cursor: pointer;
+        text-decoration: none;
+        border-left: 3px solid transparent;
+        transition: background-color 0.15s;
+      }
+      .sidebar-item:hover { background-color: #ede9e2; }
+      .sidebar-item.active {
+        background-color: #e8e3db;
+        font-weight: 600;
+        color: #222;
+        border-left-color: #3f6f5f;
+      }
+
+      .sb-icon {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        background-color: currentColor;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        display: inline-block;
+      }
+      .ic-user {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E");
+      }
+      .ic-paw {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89C6.5 4.77 7.17 3.19 8.35 3m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53C13.08 4.12 14.33 2.83 15.5 3M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73S3.2 12.89 2.41 11.32S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38C9.88 12.99 10.88 10.34 12 10.34c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89C6.5 4.77 7.17 3.19 8.35 3m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53C13.08 4.12 14.33 2.83 15.5 3M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73S3.2 12.89 2.41 11.32S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38C9.88 12.99 10.88 10.34 12 10.34c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      }
+      .ic-list {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+      }
+      .ic-flag {
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z'/%3E%3C/svg%3E");
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z'/%3E%3C/svg%3E");
+      }
+
+      .sidebar-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 12px;
+      }
+      .btn-sair {
+        width: 100%;
+        background-color: #3f6f5f;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 9px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-family: "Inter", sans-serif;
+      }
+      .btn-sair:hover { background-color: #2e5245; }
+
+      .content {
+        flex: 1;
+        background-color: #faf7f2;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.07);
+        min-height: 600px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content-inner {
+        padding: 22px 28px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #3f6f5f;
+        margin-bottom: 0;
+      }
+
+      .title-icon {
+        width: 28px;
+        height: 28px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%233f6f5f' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89C6.5 4.77 7.17 3.19 8.35 3m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53C13.08 4.12 14.33 2.83 15.5 3M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73S3.2 12.89 2.41 11.32S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38C9.88 12.99 10.88 10.34 12 10.34c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        display: inline-block;
+        flex-shrink: 0;
+      }
+
+      .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        padding: 20px 20px 0;
+        gap: 14px;
+        margin-bottom: 20px;
+      }
+
+      .empty-state img {
+        width: 220px;
+        height: auto;
+      }
+
+      .empty-state p {
+        font-size: 0.88rem;
+        color: #444;
+        font-weight: 500;
+      }
+
+      .btn-cadastrar {
+        background-color: #e07a5f;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 10px 24px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background-color 0.2s;
+      }
+      .btn-cadastrar:hover { background-color: #c9614a; }
+
+      /* Rodapé decorativo */
+      .deco-footer {
+        width: 100%;
+        height: 110px;
+        position: relative;
+        flex-shrink: 0;
+      }
+      .deco-footer svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="gov">
+        <img src="Imagens/brasao-serra.png" alt="Brasão da Prefeitura da Serra" id="head-img" />
+        <ul class="nav-gov">
+          <li><a href="https://transparencia.serra.es.gov.br/" target="_blank">Transparência</a></li>
+          <li><a href="https://portalatendimentos.serra.es.gov.br/#/" target="_blank">Portal de Atendimentos (Ouvidoria / E-sic)</a></li>
+          <li><a href="https://prefeiturasempapel.serra.es.gov.br/legislacao/" target="_blank">Legislação</a></li>
+          <li><a href="" target="_blank">Notícias</a></li>
+          <li><a href="https://transparencia.serra.es.gov.br/CartaServico.Lista.aspx" target="_blank">Carta de Serviços</a></li>
+        </ul>
+      </div>
+      <nav>
+        <img src="Imagens/logo-pequena.png" alt="Logo do Projeto Arca" id="nav-img" />
+        <ul class="nav-list">
+          <li><a href="./index.html"><span>&#8962;</span> Home</a></li>
+          <li><a href=""><span>&#9432;</span> Sobre a Arca</a></li>
+          <li><a href=""><span>&#x1F43E;</span> Adoção</a></li>
+          <li><a href=""><span>&#128295;</span> Serviços</a></li>
+          <li><a href=""><span>&#129310;</span> ONG's Parceiras</a></li>
+          <li><a href=""><span>&#128240;</span> Notícias</a></li>
+          <li><a href=""><span>&#64;</span> Contato</a></li>
+          <li><a href=""><span>&#63;</span> Ajuda</a></li>
+        </ul>
+        <button class="btn-minha-conta">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Minha Conta
+        </button>
+      </nav>
+    </header>
+
+    <div class="page-wrapper">
+      <aside class="sidebar">
+        <a href="" class="sidebar-item">
+          <span class="sb-icon ic-user"></span> Meus Dados
+        </a>
+        <a href="" class="sidebar-item active">
+          <span class="sb-icon ic-paw"></span> Meus Animais
+        </a>
+        <a href="" class="sidebar-item">
+          <span class="sb-icon ic-list"></span> Minhas<br>Solicitações
+        </a>
+        <a href="" class="sidebar-item">
+          <span class="sb-icon ic-flag"></span> Minhas<br>Denúncias
+        </a>
+        <div class="sidebar-bottom">
+          <button class="btn-sair">Sair da Conta</button>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content-inner">
+          <div class="content-title">
+            <span class="title-icon"></span>
+            Meus Animais
+          </div>
+
+          <div class="empty-state">
+            <img src="Imagens/icone.png" alt="Nenhum animal cadastrado" />
+            <p>Você ainda não cadastrou nenhum animal.</p>
+            <button class="btn-cadastrar">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+              Cadastrar meu primeiro animal
+            </button>
+          </div>
+        </div>
+
+        <div class="deco-footer">
+          <img src="Imagens/rodape.png" alt="Nenhum animal cadastrado" />
+          
+          
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

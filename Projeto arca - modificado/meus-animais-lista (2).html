@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./src/img/icone.png" type="image/x-icon" />
+  <title>Meus Animais – Projeto Arca</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap");
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #f5f2ed;
+    }
+
+    .gov {
+      background-color: #29548e;
+      display: flex;
+      align-items: center;
+      padding: 6px 20px;
+      gap: 16px;
+    }
+
+    #head-img {
+      height: 28px;
+    }
+
+    .nav-gov {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: white;
+    }
+
+    .nav-gov a {
+      text-decoration: none;
+      color: inherit;
+      transition: 0.2s;
+    }
+
+    .nav-gov a:hover {
+      color: #cce;
+    }
+
+    nav {
+      background-color: #faf7f2;
+      display: flex;
+      align-items: center;
+      padding: 10px 28px;
+      gap: 40px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+    }
+
+    #nav-img {
+      height: 44px;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 0.88rem;
+      flex: 1;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #333;
+      transition: 0.2s;
+    }
+
+    .nav-list a:hover {
+      color: #3f6f5f;
+    }
+
+    .btn-minha-conta {
+      background-color: #e07a5f;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+
+    .btn-minha-conta:hover {
+      background-color: #c9614a;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .sidebar {
+      background-color: #faf7f2;
+      border-radius: 10px;
+      padding: 20px 0;
+      min-width: 160px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-height: 590px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font-size: 0.88rem;
+      color: #444;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      text-decoration: none;
+    }
+
+    .sidebar-item:hover {
+      background-color: #ede9e2;
+    }
+
+    .sidebar-item.active {
+      background-color: #e5e0d8;
+      font-weight: 600;
+      color: #222;
+    }
+
+    .sidebar-icon {
+      display: inline-block;
+      width: 1.1em;
+      height: 1.1em;
+      background-color: currentColor;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      flex-shrink: 0;
+    }
+
+    .icon-user {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z'/%3E%3C/svg%3E");
+    }
+
+    .icon-paw {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+    }
+
+    .icon-list {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z'/%3E%3C/svg%3E");
+    }
+
+    .icon-alert {
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-6 4c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M18 16v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-6 4c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z'/%3E%3C/svg%3E");
+    }
+
+    .sidebar-spacer {
+      flex: 1;
+      min-height: 40px;
+    }
+
+    .btn-sair {
+      margin: 8px 16px;
+      background-color: #3f6f5f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: "Inter", sans-serif;
+      transition: background-color 0.2s;
+    }
+
+    .btn-sair:hover {
+      background-color: #2e5245;
+    }
+
+    .content {
+      flex: 1;
+      background-color: #faf7f2;
+      border-radius: 10px;
+      padding: 28px 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .07);
+      min-height: 580px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #3f6f5f;
+    }
+
+    .content-title-icon {
+      width: 1.4em;
+      height: 1.4em;
+      background-color: #3f6f5f;
+      display: inline-block;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/%3E%3C/svg%3E");
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+
+    .btn-add-animal {
+      background-color: #e07a5f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 18px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: "Inter", sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: background-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn-add-animal:hover {
+      background-color: #c9614a;
+    }
+
+    /* Search & filter bar */
+    .search-bar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 8px 12px;
+      border: 1px solid #d0cbc4;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: "Inter", sans-serif;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: #3f6f5f;
+    }
+
+    .filter-select {
+      padding: 8px 12px;
+      border: 1px solid #d0cbc4;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-family: "Inter", sans-serif;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .filter-select:focus {
+      border-color: #3f6f5f;
+    }
+
+    .filter-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #d0cbc4;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s;
+    }
+
+    .filter-icon:hover {
+      border-color: #3f6f5f;
+    }
+
+    /* Animal cards list */
+    .animal-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .animal-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, .06);
+      position: relative;
+    }
+
+    .animal-card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    .animal-card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .animal-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #222;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .animal-code {
+      font-size: 0.78rem;
+      color: #999;
+      font-weight: 400;
+    }
+
+    .animal-meta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 0.8rem;
+      color: #555;
+      align-items: center;
+    }
+
+    .animal-meta span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-weight: 600;
+      background-color: #e8f0ec;
+      color: #3f6f5f;
+    }
+
+    /* Status badge */
+    .status-badge {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 4px 12px;
+    }
+
+    .status-tutor {
+      background-color: #dce8ff;
+      color: #29548e;
+    }
+
+    .status-adocao {
+      background-color: #d4f0e4;
+      color: #2a7a52;
+    }
+
+    .status-adotado {
+      background-color: #e0ddd9;
+      color: #666;
+    }
+
+    /* Action buttons */
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-card {
+      font-size: 0.78rem;
+      font-family: "Inter", sans-serif;
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: opacity 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .btn-card:hover {
+      opacity: 0.8;
+    }
+
+    .btn-visualizar {
+      background-color: #eaf0f8;
+      color: #29548e;
+      border-color: #c8d8ee;
+    }
+
+    .btn-editar {
+      background-color: #edf5f0;
+      color: #3f6f5f;
+      border-color: #c2dac8;
+    }
+
+    .btn-excluir {
+      background-color: #fdecea;
+      color: #c0392b;
+      border-color: #f5c6c2;
+    }
+
+    .deco-footer {
+      width: 100%;
+      height: 50px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 700px) {
+      .page-wrapper {
+        flex-direction: column;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .nav-list {
+        gap: 12px;
+        font-size: 0.78rem;
+      }
+
+      .animal-card {
+        flex-wrap: wrap;
+      }
+
+      .status-badge {
+        position: static;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="gov">
+      <img src="./src/img/brasao-serra.png" alt="Brasão da Prefeitura da Serra" id="head-img" />
+      <ul class="nav-gov">
+        <li><a href="https://transparencia.serra.es.gov.br/" target="_blank">Transparência</a></li>
+        <li><a href="https://portalatendimentos.serra.es.gov.br/#/" target="_blank">Portal de Atendimentos (Ouvidoria /
+            E-sic)</a></li>
+        <li><a href="https://prefeiturasempapel.serra.es.gov.br/legislacao/" target="_blank">Legislação</a></li>
+        <li><a href="" target="_blank">Notícias</a></li>
+        <li><a href="https://transparencia.serra.es.gov.br/CartaServico.Lista.aspx" target="_blank">Carta de
+            Serviços</a></li>
+      </ul>
+    </div>
+    <nav>
+      <img src="./src/img/logo-pequena.png" alt="Logo do Projeto Arca" id="nav-img" />
+      <ul class="nav-list">
+        <li><a href="./index.html">&#8962; Home</a></li>
+        <li><a href="">&#9432; Sobre a Arca</a></li>
+        <li><a href="">&#x1F43E; Adoção</a></li>
+        <li><a href="">&#128295; Serviços</a></li>
+        <li><a href="">&#129310; ONG's Parceiras</a></li>
+        <li><a href="">&#128240; Notícias</a></li>
+        <li><a href="">&#64; Contato</a></li>
+        <li><a href="">&#63; Ajuda</a></li>
+      </ul>
+      <button class="btn-minha-conta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path
+            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4S7.2 4.5 7.2 7.2S9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+        </svg>
+        Minha Conta
+      </button>
+    </nav>
+  </header>
+
+  <div class="page-wrapper">
+    <aside class="sidebar">
+      <a href="" class="sidebar-item">
+        <span class="sidebar-icon icon-user"></span> Meus Dados
+      </a>
+      <a href="" class="sidebar-item active">
+        <span class="sidebar-icon icon-paw"></span> Meus Animais
+      </a>
+      <a href="" class="sidebar-item">
+        <span class="sidebar-icon icon-list"></span> Minhas Solicitações
+      </a>
+      <a href="" class="sidebar-item">
+        <span class="sidebar-icon icon-alert"></span> Minhas Denúncias
+      </a>
+      <div class="sidebar-spacer"></div>
+      <button class="btn-sair">Sair da Conta</button>
+    </aside>
+
+    <main class="content">
+      <div class="content-header">
+        <div class="content-title">
+          <span class="content-title-icon"></span>
+          Meus Animais
+        </div>
+        <button class="btn-add-animal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" />
+          </svg>
+          Adicionar novo animal
+        </button>
+      </div>
+
+      <div class="search-bar">
+        <input class="search-input" type="text" placeholder="Buscar por código ou nome do animal" />
+        <select class="filter-select">
+          <option>Filtrar por espécie</option>
+          <option>Cachorro</option>
+          <option>Gato</option>
+          <option>Outro</option>
+        </select>
+        <div class="filter-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#666">
+            <path
+              d="M4.25 5.61C6.27 8.2 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.72-4.8 5.74-7.39A.999.999 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="animal-list">
+
+        <!-- Card 1 – Pet do Tutor -->
+        <div class="animal-card">
+          <img src="Imagens/icone.png" alt="Animal 1" />
+          <div class="animal-card-body">
+            <div class="animal-name">
+              Nome <span class="animal-code">#4986</span>
+            </div>
+            <div class="animal-meta">
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#555">
+                  <path d="M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/></svg>
+                  Gato
+                </span>
+                <span>
+                  <svg width=" 13" height="13" viewBox="0 0 24 24" fill="#555">
+                    <path
+                      d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                </svg>
+                Macho
+              </span>
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#555">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z" />
+                </svg>
+                3 Meses
+              </span>
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#555">
+                  <path
+                    d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z" />
+                </svg>
+                Pequeno
+              </span>
+            </div>
+            <div class="tags">
+              <span class="tag">Castrado</span>
+              <span class="tag">Vacinado</span>
+              <span class="tag">Vermifugado</span>
+            </div>
+            <div class="card-actions">
+              <button class="btn-card btn-visualizar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Visualizar
+              </button>
+              <button class="btn-card btn-editar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                </svg>
+                Editar
+              </button>
+              <button class="btn-card btn-excluir">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                </svg>
+                Excluir
+              </button>
+            </div>
+          </div>
+          <span class="status-badge status-tutor">&#127968; Pet do Tutor</span>
+        </div>
+
+        <!-- Card 2 – Disponível para adoção -->
+        <div class="animal-card">
+          <img src="Imagens/icone.png" alt="Animal 2" />
+          <div class="animal-card-body">
+            <div class="animal-name">
+              Nome <span class="animal-code">#4986</span>
+            </div>
+            <div class="animal-meta">
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#555">
+                  <path d="M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/></svg>
+                  Gato
+                </span>
+                <span>&#9794; Macho</span>
+                <span>&#128336; 3 Meses</span>
+                <span>&#128247; Pequeno</span>
+              </div>
+              <div class=" tags">
+                    <span class="tag">Castrado</span>
+                    <span class="tag">Vacinado</span>
+                    <span class="tag">Vermifugado</span>
+            </div>
+            <div class="card-actions">
+              <button class="btn-card btn-visualizar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Visualizar
+              </button>
+              <button class="btn-card btn-editar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                </svg>
+                Editar
+              </button>
+              <button class="btn-card btn-excluir">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                </svg>
+                Excluir
+              </button>
+            </div>
+          </div>
+          <span class="status-badge status-adocao">&#10003; Disponível para adoção</span>
+        </div>
+
+        <!-- Card 3 – Adotado -->
+        <div class="animal-card">
+          <img src="ima" alt="Animal 3" />
+          <div class="animal-card-body">
+            <div class="animal-name">
+              Nome <span class="animal-code">#4986</span>
+            </div>
+            <div class="animal-meta">
+              <span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#555">
+                  <path d="M8.35 3c1.18-.17 2.43 1.12 2.79 2.9c.36 1.77-.29 3.35-1.47 3.53c-1.17.18-2.43-1.11-2.8-2.89c-.37-1.77.3-3.35 1.48-3.54m7.15 0c1.19.19 1.85 1.77 1.5 3.54c-.38 1.78-1.63 3.07-2.81 2.89c-1.19-.18-1.84-1.76-1.47-3.53c.36-1.78 1.61-3.07 2.78-2.9M3 7.6c1.14-.49 2.69.4 3.5 1.95c.76 1.58.5 3.24-.63 3.73s-2.67-.39-3.46-1.96S1.9 8.08 3 7.6m18 0c1.1.48 1.38 2.15.59 3.72s-2.33 2.45-3.46 1.96s-1.39-2.15-.63-3.73C18.31 8 19.86 7.11 21 7.6m-1.67 10.78c.04.94-.68 1.98-1.54 2.37c-1.79.82-3.91-.88-5.9-.88s-4.13 1.77-5.89.88c-1-.49-1.69-1.79-1.56-2.87c.18-1.49 1.97-2.29 3.03-3.38c1.41-1.41 2.41-4.06 4.42-4.06c2 0 3.06 2.61 4.41 4.06c1.11 1.22 2.96 2.25 3.03 3.88'/></svg>
+                  Gato
+                </span>
+                <span>&#9794; Macho</span>
+                <span>&#128336; 3 Meses</span>
+                <span>&#128247; Pequeno</span>
+              </div>
+              <div class=" tags">
+                    <span class="tag">Castrado</span>
+                    <span class="tag">Vacinado</span>
+                    <span class="tag">Vermifugado</span>
+            </div>
+            <div class="card-actions">
+              <button class="btn-card btn-visualizar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Visualizar
+              </button>
+              <button class="btn-card btn-editar">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+                </svg>
+                Editar
+              </button>
+              <button class="btn-card btn-excluir">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+                </svg>
+                Excluir
+              </button>
+            </div>
+          </div>
+          <span class="status-badge status-adotado">&#10003; Adotado</span>
+        </div>
+
+      </div>
+
+      <div class="deco-footer">
+        <img src="Imagens/rodape.png" alt="Nenhum animal cadastrado" />
+      </div>
+    </main>
+    </main>
+  </div>
+</body>
+
+</html>
